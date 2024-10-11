@@ -1,0 +1,78 @@
+
+1. Install ROS1:
+Update dulu sistem dan install ROS Noetic.
+sudo apt update
+sudo apt install ros-noetic-desktop-full
+
+2. Setup ROS environment:
+Tambahkan ROS ke environment agar selalu ter-source saat terminal dibuka.
+echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+
+3. Install dependencies:
+Install beberapa dependencies rosdep dan lainnya dan update.
+sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+sudo rosdep init
+rosdep update
+
+4. Buat workspace Catkin:
+Buat folder workspace Catkin, lalu build .
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws/
+catkin_make
+
+5. Source workspace setup:
+Tambahkan workspace ke environment agar selalu ter-source secara otomatis.
+echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+
+6. Cek workspace ROS:
+Gunakan command roscd untuk mengecek apakah workspace ROS sudah bekerja dengan baik.
+roscd
+
+7. Buat package ROS:
+Buat package baru dengan dependensi seperti std_msgs, rospy, dan roscpp.
+cd ~/catkin_ws/src
+catkin_create_pkg <nama_package> std_msgs rospy roscpp
+# Contoh:
+catkin_create_pkg my_robot std_msgs rospy roscpp
+
+8. Build workspace:
+Setelah package dibuat, bangun ulang workspace agar package dikenali.
+cd ~/catkin_ws
+catkin_make
+
+9. Source workspace lagi:
+Source workspace setelah dibuild agar package dikenali.
+source devel/setup.bash
+
+10. Verifikasi package:
+Gunakan rospack list untuk memverifikasi apakah package sudah terdaftar di ROS.
+rospack list
+
+11. Tulis ROS Node dalam Python:
+Buat file Python untuk node di package yang sudah kita buat.
+cd ~/catkin_ws/src/my_robot_controller/src
+touch my_first_node.py
+
+12. Edit file Python dan masukkan kode:
+#! /usr/bin/env python3
+import rospy
+
+if __name__ == "__main__":
+    rospy.init_node("my_first_node")
+    rospy.loginfo("Test node has been started.")
+    
+    rate = rospy.Rate(10)  # Set rate to 10 Hz
+    
+    while not rospy.is_shutdown():
+        rospy.loginfo("Hello")
+        rate.sleep()
+
+13. Jadikan file executable:
+Ubah permission agar file Python bisa dieksekusi.
+chmod +x my_first_node.py
+
+14. Jalankan node ROS:
+Jalankan node yang sudah dibuat dengan command rosrun.
+rosrun my_robot_controller my_first_node.py
