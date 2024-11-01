@@ -1,0 +1,114 @@
+
+Langkah-Langkah ROS Motion Planning - Path Searching dan Trajectory Optimization
+
+1. Instal Dependensi ROS
+   - Pastikan Anda telah menginstal paket `moveit` dan `ros_control`.
+   ```bash
+   sudo apt update
+   sudo apt install ros-noetic-moveit ros-noetic-ros-control ros-noetic-ros-controllers
+   ```
+
+2. Setup Workspace
+   - Buat workspace untuk motion planning.
+   ```bash
+   mkdir -p ~/motion_planning_ws/src
+   cd ~/motion_planning_ws
+   catkin_make
+   ```
+
+3. Struktur Folder Utama Proyek
+   Struktur proyek ROS untuk perencanaan gerak terdiri dari beberapa folder yang dikelompokkan berdasarkan fungsinya:
+   ```
+   ros_motion_planner
+   ├── 3rd
+   ├── docs
+   ├── docker
+   ├── assets
+   ├── scripts
+   └── src
+       ├── core
+       │   ├── common
+       │   ├── path_planner
+       │   └── controller
+       ├── sim_env             # lingkungan simulasi
+       │   ├── config
+       │   ├── launch
+       │   ├── maps
+       │   ├── meshes
+       │   ├── models
+       │   ├── rviz
+       │   ├── urdf
+       │   └── worlds
+       ├── plugins
+       │   ├── dynamic_rviz_config
+       │   ├── dynamic_xml_config
+       │   ├── gazebo_plugins
+       │   ├── map_plugins
+       │   └── rviz_plugins
+       └── user_config         # file konfigurasi pengguna
+   ```
+
+4. Dokumentasi Kode dengan Doxygen
+   Untuk memahami kode proyek dengan lebih baik, dokumentasi antarmuka terperinci dapat dihasilkan menggunakan alat doxygen. Instal doxygen dan graphviz:
+   ```bash
+   sudo apt-get install doxygen graphviz
+   ```
+   Kemudian, jalankan doxygen dan Anda dapat menemukan dokumentasi di `./docs/html/index.html`.
+   ```bash
+   doxygen
+   ```
+
+5. Tutorial Dasar ROS
+   - **Meluncurkan MoveIt! dan Rviz**: Untuk memulai demo MoveIt! dengan Rviz.
+     ```bash
+     roslaunch panda_moveit_config demo.launch
+     ```
+
+   - **Perencanaan Jalur di Rviz**: Buka Rviz, pilih **MotionPlanning** di panel kiri, atur **Planning Request** dari titik awal ke tujuan, klik **Plan** lalu **Execute** untuk menampilkan jalur yang direncanakan.
+
+6. Optimalisasi Trajektori di Rviz
+   - Di Rviz, aktifkan **Trajectories** dan pilih optimizer seperti **CHOMP** atau **STOMP**.
+   - Lakukan optimasi pada trajektori yang dihasilkan.
+
+7. Simulasi di Gazebo
+   - Untuk meluncurkan robot di Gazebo.
+   ```bash
+   roslaunch panda_gazebo panda_world.launch
+   ```
+
+8. Integrasi MoveIt! dengan Gazebo
+   - Gunakan perintah berikut untuk mengintegrasikan MoveIt! dengan Gazebo.
+   ```bash
+   roslaunch panda_moveit_config moveit_planning_execution.launch
+   roslaunch panda_moveit_config moveit_rviz.launch
+   ```
+
+9. Optimasi Jalur di Gazebo
+   - Di Rviz, pada tab **MotionPlanning**, lakukan optimasi jalur untuk melihat bagaimana jalur diubah agar lebih efisien dalam simulasi waktu nyata.
+
+### Rincian Dokumentasi dan Alat Simulasi
+
+#### 1. Dokumentasi Proyek
+   - Struktur utama proyek:
+     ```
+     ros_motion_planner
+     └── docs
+         └── html           # Dokumentasi yang dihasilkan oleh Doxygen
+     ```
+   - Untuk informasi lebih lanjut tentang penggunaan proyek, silakan lihat tabel berikut:
+     - Status: Penjelasan konfigurasi parameter dinamis seperti tipe robot, algoritma perencanaan, rintangan lingkungan, dll.
+     - Docker: Cara menggunakan Docker untuk membangun dan mensimulasikan lingkungan proyek dengan mudah.
+     - Algoritma: Cara membangun aplikasi robot nyata berdasarkan algoritma yang disediakan.
+
+#### 2. Tool Chains
+   - Plugin Gazebo: Menyediakan plugin Gazebo untuk membuat lingkungan dinamis di ROS.
+   - Rviz Plugins: Menyediakan plugin Rviz berbasis ROS untuk visualisasi perencanaan jalur dan algoritma pembangkitan kurva.
+
+#### 3. Versi Global Planner
+   Berbagai algoritma perencanaan yang didukung:
+     - GBFS, Dijkstra, A*, JPS, D*, LPA*, dan lainnya, dengan animasi dan referensi makalah.
+
+#### 4. Acknowledgments
+   Model robot dan dunia berasal dari sumber open-source seperti Dataset-of-Gazebo-Worlds-Models-and-Maps. Pejalan kaki menggunakan model gaya sosial (sfm) dari https://github.com/robotics-upo/lightsfm.
+
+Panduan ini memuat langkah-langkah untuk pengaturan ROS, perencanaan jalur dan optimasi trajektori menggunakan MoveIt!, Rviz, dan Gazebo dalam bahasa Indonesia.
