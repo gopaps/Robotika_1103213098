@@ -1,0 +1,79 @@
+Command yang Digunakan untuk Implementasi dan Simulasi PRM dan RRT
+
+Command untuk Implementasi dan Simulasi Probabilistic Roadmap (PRM) dengan Visualisasi Matplotlib
+
+1. Instalasi Python dan Matplotlib
+   pip install matplotlib
+   - Menginstal library Matplotlib untuk visualisasi.
+
+2. Menjalankan Implementasi PRM dengan Matplotlib
+   python prm_matplotlib.py
+   - Menjalankan script PRM untuk membangun dan memvisualisasikan roadmap.
+
+Command untuk Implementasi dan Simulasi Probabilistic Roadmap (PRM) dengan Visualisasi RViz
+
+1. Clone Repository dari GitHub
+   git clone https://github.com/nishadg246/Probabilistic-Roadmap.git
+   - Menyalin repository ke lokal.
+
+2. Pindah ke Workspace Catkin
+   cd ~/catkin_ws
+
+3. Kompilasi dengan catkin_make
+   catkin_make
+   - Mengkompilasi paket di workspace.
+
+4. Source Setup File
+   source devel/setup.bash
+   - Mengatur environment agar ROS mengenali paket.
+
+5. Jalankan roscore
+   roscore
+   - Menjalankan master node ROS.
+
+6. Jalankan Node PRM
+   rosrun probabilistic_roadmap prm
+   - Menjalankan node PRM.
+
+7. Jalankan RViz
+   rosrun rviz rviz
+   - Menampilkan visualisasi PRM di RViz.
+
+8. Tambahkan Transformasi Statis (jika diperlukan)
+   rosrun tf static_transform_publisher 0 0 0 0 0 0 1 map base_link 10
+   - Menghubungkan frame map ke base_link.
+
+Command untuk Implementasi Algoritma Rapidly-Expanding Random Trees (RRT) di ROS dengan Visualisasi RViz
+
+1. Clone Repository dari GitHub
+   git clone https://github.com/Malintha/rrt-ros.git
+
+2. Pindah ke Workspace Catkin
+   cd ~/catkin_ws
+
+3. Kompilasi dengan catkin_make
+   catkin_make
+
+4. Source Setup File
+   source devel/setup.bash
+
+5. Jalankan roscore
+   roscore
+
+6. Jalankan Node RRT
+   rosrun rrt-planning rrt
+
+7. Jalankan RViz
+   rosrun rviz rviz
+
+8. Tambahkan Transformasi Statis (jika diperlukan)
+   rosrun tf static_transform_publisher 0 0 0 0 0 0 1 map base_link 10
+
+Penjelasan Singkat
+- git clone: Menyalin repository.
+- catkin_make: Mengkompilasi paket.
+- source devel/setup.bash: Mengatur environment ROS.
+- roscore: Menjalankan master node ROS.
+- rosrun: Menjalankan node ROS.
+- RViz: Alat visualisasi ROS.
+- Transformasi Statis: Menghubungkan frame koordinat di RViz.
